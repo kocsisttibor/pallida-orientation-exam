@@ -48,8 +48,8 @@ app.get('/search', (req, res) => {
     });
 })
 
-app.get('/search', (req, res) => {
-    connection.query('SELECT * FROM licence:plates WHERE car_brand="' + req.params.brand + '"', (err, result) => {
+app.get('/search/:brand', (req, res) => {
+    connection.query('SELECT * FROM licence_plates WHERE car_brand="' + req.params.brand + '"', (err, result) => {
         if (err) {
             console.error('Error occured during database query');
         } else {
