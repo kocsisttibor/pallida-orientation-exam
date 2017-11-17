@@ -1,6 +1,6 @@
 'use strict'
 
-const ajax = ( method, data, resource, callback ) => {
+const ajax = (method, data, resource, callback) => {
   const url = 'http://localhost:8080'
   const xhr = new XMLHttpRequest();
   data = data ? data : null;
@@ -14,3 +14,16 @@ const ajax = ( method, data, resource, callback ) => {
   };
 };
 
+
+function printer(x) {
+  console.log(x)
+}
+
+function getPlates(input) {
+  ajax('GET',false, '/search?q=' + input, printer);
+}
+
+const inputField = document.querySelector('input');
+const queryButton = document.querySelector('button');
+
+queryButton.addEventListener('click', () => getPlates(inputField.value));
