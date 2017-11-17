@@ -22,25 +22,37 @@ connection.connect(function(err) {
 app.use(express.json());
 app.use('/', express.static('./assets'));
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/assets/index.html');
 });
 
-app.get('/search', function(req, res) {
+app.get('/search', (req, res) => {
     connection.query('SELECT * FROM licence_plates WHERE plate="' + req.query.q + '"', (err, result) => {
         if (err) {
-            console.error('Error occured during database query.')
+            console.error('Error occured during database query');
         } else {
             let answer = {
                 result: "ok",
                 data: result
             }
-            res.json(answer)
+            res.json(answer);
         }
     });
 })
 
-
+app.get('/search', (req, res) => {
+    connection.query('SELECT * FROM licence:plates WHERE car_brand="' + req.params.brand + '"', (err, result) => {
+        if (err) {
+            console.error('Error occured during database query');
+        } else {
+            let answer = {
+                result: "ok",
+                data: result
+            }
+            res.json(answer);
+        }
+    })
+})
 
 app.listen(port, error => {
     if (error) {
