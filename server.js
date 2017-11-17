@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-    connection.query('SELECT * FROM licence_plates WHERE plate="' + req.query.q + '"', (err, result) => {
+    connection.query('SELECT * FROM licence_plates WHERE plate LIKE "%' + req.query.q + '%"', (err, result) => {
         if (err) {
             console.error('Error occured during database query');
         } else {

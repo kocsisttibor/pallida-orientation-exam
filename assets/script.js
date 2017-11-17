@@ -32,7 +32,7 @@ function render(input) {
   input.data.forEach(row => {
     content += `<tr>
                 <td>${row.plate}</td>
-                <td>${row.car_brand}</td>
+                <td>[${row.car_brand}]</td>
                 <td>${row.car_model}</td>
                 <td>${row.color}</td>
                 <td>${row.year}</td>
