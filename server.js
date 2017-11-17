@@ -27,7 +27,15 @@ app.get('/', (req, res) => {
 });
 
 app.get('/search', (req, res) => {
-    connection.query('SELECT * FROM licence_plates WHERE plate LIKE "%' + req.query.q + '%"', (err, result) => {
+    let selection = ''
+    if (req.query.police * 1 === 1) {
+        selection += 'SELECT * FROM licence_plates WHERE plate LIKE "%' + req.query.q + '%" AND plate LIKE "RB%"';
+    } else if (req.query.diplomat * 1 === 1) {
+        selection += 'SELECT * FROM licence_plates WHERE plate LIKE "%' + req.query.q + '%" AND plate LIKE "DT%"';
+    } else {
+        selection += 'SELECT * FROM licence_plates WHERE plate LIKE "%' + req.query.q + '%"'
+    }
+    connection.query(selection, (err, result) => {
         if (err) {
             console.error('Error occured during database query');
         } else {

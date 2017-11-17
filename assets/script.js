@@ -44,8 +44,11 @@ function render(input) {
   container.appendChild(table)
 }
 
+
 function getPlates(input) {
-  ajax('GET',false, '/search?q=' + input, render);
+  let police = document.querySelector('input.police').checked ? 1: 0;
+  let diplomat = document.querySelector('input.diplomat').checked ? 1: 0;
+  ajax('GET',false, '/search?q=' + input + '&police=' + police + '&diplomat=' + diplomat, render);
 }
 
 const inputField = document.querySelector('input');
