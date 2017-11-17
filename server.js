@@ -16,7 +16,7 @@ connection.connect(function(err) {
         console.log('Error connecting to DB');
         return;
     }
-    console.log('DB connection estabilished')
+    console.log('DB connection estabilished');
 });
 
 app.use(express.json());
@@ -26,6 +26,19 @@ app.get('/', function(req, res) {
     res.sendFile(__dirname + '/assets/index.html');
 });
 
+app.get('/search', function(req, res) {
+    connection.query('SELECT * FROM licence_plates WHERE plate="' + req.query.q + '"', (err, result) => {
+        if (err) {
+            console.error('Error occured during database query.')
+        } else {
+            let answer = {
+                result: "ok",
+                data: result
+            }
+            res.json(answer)
+        }
+    });
+})
 
 
 
