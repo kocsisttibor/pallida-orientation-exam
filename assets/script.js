@@ -15,6 +15,11 @@ const ajax = (method, data, resource, callback) => {
 };
 
 function render(input) {
+  let container = document.querySelector('div.result');
+  let previousContent = document.querySelector('div.result > table');
+  if (previousContent !== null) {
+    container.removeChild(previousContent);
+  }
   let content = `<table>
                 <thead>
                   <th>Licence plate</th>
@@ -34,7 +39,6 @@ function render(input) {
               </tr>`
   });
   content += `</tbody></table>`;
-  let container = document.querySelector('div.result');
   let table = document.createElement('table');
   table.innerHTML = content
   container.appendChild(table)
