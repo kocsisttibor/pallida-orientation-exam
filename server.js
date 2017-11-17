@@ -26,6 +26,11 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/assets/index.html');
 });
 
+function validation(input) {
+    let valid = input.matches("^[A-z0-9]+$") && Array.from(input).length === 7;
+    return valid;
+}
+
 app.get('/search', (req, res) => {
     let selection = ''
     if (req.query.police * 1 === 1) {
