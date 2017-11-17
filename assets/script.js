@@ -14,16 +14,37 @@ const ajax = (method, data, resource, callback) => {
   };
 };
 
-
-function printer(x) {
-  console.log(x)
+function render(input) {
+  let content = `<table>
+                <thead>
+                  <th>Licence plate</th>
+                  <th>Brand</th>
+                  <th>Model</th>
+                  <th>Color</th>
+                  <th>Year</th>
+                </thead>
+                <tbody>`
+  input.data.forEach(row => {
+    content += `<tr>
+                <td>${row.plate}</td>
+                <td>${row.car_brand}</td>
+                <td>${row.car_model}</td>
+                <td>${row.color}</td>
+                <td>${row.year}</td>
+              </tr>`
+  });
+  content += `</tbody></table>`;
+  let container = document.querySelector('div.result');
+  let table = document.createElement('table');
+  table.innerHTML = content
+  container.appendChild(table)
 }
 
 function getPlates(input) {
-  ajax('GET',false, '/search?q=' + input, printer);
+  ajax('GET',false, '/search?q=' + input, render);
 }
 
 const inputField = document.querySelector('input');
-const queryButton = document.querySelector('button');
+const queryButton = document.querySelector('button.query');
 
 queryButton.addEventListener('click', () => getPlates(inputField.value));
